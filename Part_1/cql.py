@@ -131,4 +131,5 @@ class CQL:
             decay_rate = 5.0
             progress = timestep / max_timestep
             self.epsilon = self.start_epsilon * np.exp(-decay_rate * progress)
+
             self.epsilon = max(0.05, self.epsilon)
