@@ -161,13 +161,11 @@ class IQL:
         :param method (str): 'linear' or 'exponential'
         """
         if method == 'linear':
-            # Your original simple formula
+            # original simple formula
             decay_progress = timestep / (0.8 * max_timestep)
             self.epsilon = 1.0 - min(1.0, decay_progress) * 0.99
             
         elif method == 'exponential':
-            # New Complex Method:
-            # We decay faster at the start and slower at the end.
             # Formula: epsilon = start * e^(-decay_rate * progress)
             
             decay_rate = 5.0  # Adjust this: Higher = faster decay
@@ -176,20 +174,6 @@ class IQL:
             # Calculate exponential decay
             self.epsilon = self.start_epsilon * np.exp(-decay_rate * progress)
             
-            # Safety Clamp: Ensure we always explore at least 5% (0.05)
-            # This prevents the agent from getting permanently stuck in a bad habit.
             self.epsilon = max(0.05, self.epsilon)
 
-        
-
-    # def schedule_hyperparameters(self, timestep: int, max_timestep: int):
-    #     """
-    #     Updates the hyperparameters
-
-    #     This function is called before every episode and allows you to schedule your
-    #     hyperparameters.
-
-    #     :param timestep (int): current timestep at the beginning of the episode
-    #     :param max_timestep (int): maximum timesteps that the training loop will run for
-    #     """
-    #     self.epsilon = 1.0 - (min(1.0, timestep / (0.8 * max_timestep))) * 0.99
+   
